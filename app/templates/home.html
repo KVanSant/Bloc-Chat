@@ -1,4 +1,24 @@
 <h1>Chat Rooms</h1>
-<button class="btn btn-default" ng-click="open('sm')">New room</button>
-<div ng-repeat="room in rooms">
+<div ng-controller="ModalCtrl">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Create new room</h3>
+        </div>
+        <div class="modal-body">
+          <p>Enter a room name</p>
+          <input type="text" ng-model="newRoom">
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="ok()">Add</button>
+          <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
+    <button class="btn btn-default" ng-click="open('sm')">New Room</button>
 </div>
+<div ng-repeat="room in rooms">
+  <ul>
+    <li>{{room}}</li>
+  </ul>
+</div>
+
+
