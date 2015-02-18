@@ -32,8 +32,7 @@ blocchat.controller('ModalCtrl', function ($scope, $modal) {
 
 
 blocchat.controller('ModalInstanceCtrl', function($scope, $modalInstance, Room) {
-  $scope.room = Room.all; 
-
+  
   $scope.addRoom = function() {
     Room.create($scope.newRoom);
     $modalInstance.close();
