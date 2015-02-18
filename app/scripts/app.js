@@ -6,15 +6,15 @@ blocchat.config(['$stateProvider', '$locationProvider', function($stateProvider,
 
   $stateProvider.state('home', {
     url: '/',
-    controller: 'Home.controller',
+    controller: 'HomeCtrl',
     templateUrl: '/templates/home.html'
   });
 }]);
 
 
 
-blocchat.controller('Home.controller', ['$scope', 'Room', function($scope, Room) {
- $scope.room = Room.all; 
+blocchat.controller('HomeCtrl', ['$scope', 'Room', function($scope, Room) {
+ $scope.rooms = Room.all; 
 
 }]);
 
