@@ -14,8 +14,8 @@ blocchat.config(['$stateProvider', '$locationProvider', function($stateProvider,
 
 
 
-blocchat.controller('Home.controller', ['$scope', '$firebase', 'Room', function($scope, $firebase, $modal, Room) {
- // $scope.room = Rooms; 
+blocchat.controller('Home.controller', ['$scope', 'Room', function($scope, Room) {
+ $scope.room = Room.all; 
 
 }]);
 
@@ -32,9 +32,11 @@ blocchat.controller('ModalCtrl', function ($scope, $modal) {
 });
 
 
-blocchat.controller('ModalInstanceCtrl', function($scope, $modalInstance) {
+blocchat.controller('ModalInstanceCtrl', function($scope, $modalInstance, Room) {
+  $scope.room = Room.all; 
 
-  $scope.ok = function () {
+  $scope.addRoom = function(){
+    Room.create($scope.newRoom);
     $modalInstance.close();
   };
 
@@ -48,14 +50,13 @@ blocchat.factory('Room', ['$firebase', function($firebase) {
   var ref = new Firebase("https://blocchat.firebaseio.com/");
   var rooms = $firebase(ref.child('rooms')).$asArray();
 
-  addRoom = function(room) {
-    rooms.$add(room);
-    newRoom = "";
-  };
-
+  
   return {
-    all: rooms
-  }
+    all: rooms,
+    create: function(room){
+      rooms.$add({room: room});
+    }
+  };
 }]);
 
 

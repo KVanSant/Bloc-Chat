@@ -9,7 +9,7 @@
           <input type="text" ng-model="newRoom">
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" ng-click="ok()">Add</button>
+          <button class="btn btn-primary" ng-click="addRoom()">Add</button>
           <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </div>
     </script>
@@ -17,7 +17,7 @@
 </div>
 <div ng-repeat="room in rooms">
   <ul>
-    <li>{{room}}</li>
+    <li>{{room.room}}</li>
   </ul>
 </div>
 
