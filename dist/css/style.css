@@ -1,0 +1,6 @@
+.rooms {
+  list-style: none; }
+
+.rooms:hover {
+  font-weight: bold;
+  cursor: pointer; }

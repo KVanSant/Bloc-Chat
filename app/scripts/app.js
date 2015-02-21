@@ -16,6 +16,8 @@ blocchat.config(['$stateProvider', '$locationProvider', function($stateProvider,
 blocchat.controller('HomeCtrl', ['$scope', 'Room', function($scope, Room) {
  $scope.rooms = Room.all; 
 
+
+
 }]);
 
 
