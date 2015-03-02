@@ -18,7 +18,7 @@
   </div>
   <div ng-repeat="room in rooms">
     <ul>
-      <li class="rooms">
+      <li class="rooms" ng-click="select(room)">
         {{room.room}}
       </li>
     </ul>
@@ -26,9 +26,18 @@
 </div>
 
 <div class="container">
-  <h3>{{}}</h3>
+  <h3>{{selected.room}}</h3>
+  <div class='row'>
+    <table ng-show="selected.room"> 
+      <tr ng-repeat="message in messages">
+        <td class="col-md-3">{{message.username}}:</td>
+        <td class="col-md-7">{{message.content}}</td>
+        <td class="col-md-2"></td>
+       </tr>  
+    </table>
+  </div>
 
-</div>
+
 
 
 
