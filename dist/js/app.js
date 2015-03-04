@@ -19,9 +19,7 @@ blocchat.controller('HomeCtrl', ['$scope', 'Room', function($scope, Room) {
   
   $scope.select = function(roomId){
     $scope.activeRoom = $scope.rooms.$getRecord(roomId);
-    console.log($scope.activeRoom.$id);
     $scope.messages = Room.messages($scope.activeRoom.$id);
-    console.log($scope.messages);  
   };
 }]);
 
