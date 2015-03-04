@@ -14,18 +14,19 @@ blocchat.config(['$stateProvider', '$locationProvider', function($stateProvider,
 
 
 
-blocchat.controller('HomeCtrl', ['$scope', 'Room', 'Message', function($scope, Room, Message) {
+blocchat.controller('HomeCtrl', ['$scope', 'Room', function($scope, Room) {
   $scope.rooms = Room.all; 
-  $scope.messages = Message.all;
-
-  $scope.select = function(room){
-    $scope.selected = room;
-    console.log(room.$id); 
+  
+  $scope.select = function(roomId){
+    $scope.activeRoom = $scope.rooms.$getRecord(roomId);
+    console.log($scope.activeRoom.$id);
+    $scope.messages = Room.messages($scope.activeRoom.$id);
+    console.log($scope.messages);  
   };
 }]);
 
 
-blocchat.controller('ModalCtrl', function ($scope, $modal) {
+blocchat.controller('ModalCtrl', function($scope, $modal) {
 
   $scope.open = function (size) {
     var modalInstance = $modal.open({
@@ -62,21 +63,24 @@ blocchat.factory('Room', ['$firebase', function($firebase) {
       rooms.$add({room: room});
     },
     messages: function(roomID){
-      ref.child('messages').orderByChild('roomid').equalTo('roomID');
+      var messagesArray = $firebase(ref.child('messages').orderByChild('roomid').equalTo(roomID)).$asArray();
+      return messagesArray;
     }
   };
 }]);
 
 
- blocchat.factory('Message', ['$firebase', function($firebase){
+
+blocchat.factory('Message', ['$firebase', function($firebase) {
   var ref = new Firebase("https://blocchat.firebaseio.com/");
   var messages = $firebase(ref.child('messages')).$asArray();
 
-  return {
-    all: messages
-  };
- }]);
-
+  //return {
+    //send: function(newMessage) {
+     
+    //}
+  //}
+}]);
 
 
 
