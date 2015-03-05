@@ -25,12 +25,18 @@ blocchat.run(['$cookies', '$modal', function($cookies, $modal) {
 }]);
 
 
-blocchat.controller('HomeCtrl', ['$scope', 'Room', function($scope, Room) {
+blocchat.controller('HomeCtrl', ['$scope', 'Room', 'Message', '$cookieStore',  function($scope, Room, Message, $cookieStore) {
   $scope.rooms = Room.all; 
+  var currentUser = $cookieStore.get('blocChatCurrentUser');
   
   $scope.select = function(roomId){
     $scope.activeRoom = $scope.rooms.$getRecord(roomId);
     $scope.messages = Room.messages($scope.activeRoom.$id);
+  };
+
+  $scope.sendMessage = function(){
+    Message.send($scope.newMessage, $scope.activeRoom.$id, currentUser);
+    $scope.newMessage = "";
   };
 }]);
 
@@ -49,7 +55,6 @@ blocchat.controller('ModalCtrl', function($scope, $modal) {
 
 blocchat.controller('ModalInstanceCtrl', function($scope, $modalInstance, Room) {
   
-
   $scope.addRoom = function() {
     Room.create($scope.newRoom);
     $modalInstance.close();
@@ -91,6 +96,16 @@ blocchat.factory('Message', ['$firebase', function($firebase) {
   var ref = new Firebase("https://blocchat.firebaseio.com/");
   var messages = $firebase(ref.child('messages')).$asArray();
 
+  return {
+    send: function(newMessage, roomID, userName) {
+      messages.$add({
+        content: newMessage,
+        sentat: Firebase.ServerValue.TIMESTAMP,
+        roomid: roomID,
+        username: userName
+      });
+    }
+  }
 }]);
 
 
