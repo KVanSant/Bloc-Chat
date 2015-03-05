@@ -26,9 +26,9 @@ blocchat.run(['$cookies', '$modal', function($cookies, $modal) {
 }]);
 
 
-blocchat.controller('HomeCtrl', ['$scope', 'Room', 'Message', '$cookieStore',  function($scope, Room, Message, $cookieStore) {
+blocchat.controller('HomeCtrl', ['$scope', 'Room', 'Message',  function($scope, Room, Message) {
   $scope.rooms = Room.all; 
-  var currentUser = $cookieStore.get('blocChatCurrentUser');
+  
   
   $scope.select = function(roomId){
     $scope.activeRoom = $scope.rooms.$getRecord(roomId);
@@ -36,7 +36,7 @@ blocchat.controller('HomeCtrl', ['$scope', 'Room', 'Message', '$cookieStore',  f
   };
 
   $scope.sendMessage = function(){
-    Message.send($scope.newMessage, $scope.activeRoom.$id, currentUser);
+    Message.send($scope.newMessage, $scope.activeRoom.$id);
     $scope.newMessage = "";
   };
 }]);
@@ -75,6 +75,7 @@ blocchat.controller('UserModalInstanceCtrl', function($scope, $modalInstance, $c
   };
 });
 
+
 blocchat.factory('Room', ['$firebase', function($firebase) {
   var ref = new Firebase("https://blocchat.firebaseio.com/");
   var rooms = $firebase(ref.child('rooms')).$asArray();
@@ -93,17 +94,18 @@ blocchat.factory('Room', ['$firebase', function($firebase) {
 
 
 
-blocchat.factory('Message', ['$firebase', function($firebase) {
+blocchat.factory('Message', ['$firebase', '$cookieStore', function($firebase, $cookieStore) {
   var ref = new Firebase("https://blocchat.firebaseio.com/");
   var messages = $firebase(ref.child('messages')).$asArray();
+  var currentUser = $cookieStore.get('blocChatCurrentUser');
 
   return {
-    send: function(newMessage, roomID, userName) {
+    send: function(newMessage, roomID) {
       messages.$add({
         content: newMessage,
         sentat: Firebase.ServerValue.TIMESTAMP,
         roomid: roomID,
-        username: userName
+        username: currentUser
       });
     }
   }
