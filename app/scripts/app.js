@@ -1,4 +1,4 @@
-blocchat = angular.module('BlocChat', ['firebase', 'ui.router', 'ui.bootstrap']);
+blocchat = angular.module('BlocChat', ['firebase', 'ui.router', 'ui.bootstrap', 'ngCookies']);
 
 
 blocchat.config(['$stateProvider', '$locationProvider', function($stateProvider, $locationProvider) {
@@ -11,6 +11,18 @@ blocchat.config(['$stateProvider', '$locationProvider', function($stateProvider,
   });
 }]);
 
+
+blocchat.run(['$cookies', '$modal', function($cookies, $modal) {
+ 
+  if (!$cookies.blocChatCurrentUser || $cookies.blocChatCurrentUser === ''){
+    
+     $modal.open({
+      templateUrl: '/templates/userModalContent.html',
+      controller: 'UserModalInstanceCtrl',
+      size: 'sm'
+    });
+  }
+}]);
 
 
 blocchat.controller('HomeCtrl', ['$scope', 'Room', function($scope, Room) {
@@ -49,11 +61,18 @@ blocchat.controller('ModalInstanceCtrl', function($scope, $modalInstance, Room) 
 });
 
 
+blocchat.controller('UserModalInstanceCtrl', function($scope, $modalInstance, $cookieStore) {
+
+  $scope.addUser = function(username) {
+    $cookieStore.put('blocChatCurrentUser', username);
+    $modalInstance.close()
+  };
+});
+
 blocchat.factory('Room', ['$firebase', function($firebase) {
   var ref = new Firebase("https://blocchat.firebaseio.com/");
   var rooms = $firebase(ref.child('rooms')).$asArray();
-
-  
+ 
   return {
     all: rooms,
     create: function(room){
@@ -72,11 +91,6 @@ blocchat.factory('Message', ['$firebase', function($firebase) {
   var ref = new Firebase("https://blocchat.firebaseio.com/");
   var messages = $firebase(ref.child('messages')).$asArray();
 
-  //return {
-    //send: function(newMessage) {
-     
-    //}
-  //}
 }]);
 
 
