@@ -18,7 +18,7 @@ blocchat.run(['$cookies', '$modal', function($cookies, $modal) {
   if (!$cookies.blocChatCurrentUser || $cookies.blocChatCurrentUser === ''){
     
      $modal.open({
-      templateUrl: 'templates/userModalContent.html',
+      template: '/templates/userModalContent.html',
       controller: 'UserModalInstanceCtrl',
       size: 'sm'
     });
