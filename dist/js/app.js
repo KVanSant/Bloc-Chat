@@ -18,7 +18,7 @@ blocchat.run(['$cookies', '$modal', function($cookies, $modal) {
   if (!$cookies.blocChatCurrentUser || $cookies.blocChatCurrentUser === ''){
     
      $modal.open({
-      templateUrl: '/templates/userModalContent.html',
+      templateUrl: 'templates/userModalContent.html',
       controller: 'UserModalInstanceCtrl',
       size: 'sm'
     });
@@ -110,6 +110,7 @@ blocchat.factory('Message', ['$firebase', '$cookieStore', function($firebase, $c
     }
   }
 }]);
+
 
 
 
