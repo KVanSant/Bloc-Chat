@@ -17,7 +17,16 @@ blocchat.run(['$cookies', '$modal', function($cookies, $modal) {
   if (!$cookies.blocChatCurrentUser || $cookies.blocChatCurrentUser === ''){
     
      $modal.open({
-      template: '/templates/userModalContent.html',
+      template: '<div class="modal-header">\
+                    <h3 class="modal-title">Set a username</h3>\
+                  </div>\
+                  <div class="modal-body">\
+                    <p>This name will appear when you send messages</p>\
+                    <input type="text" ng-model="newUser">\
+                  </div>\
+                  <div class="modal-footer">\
+                  <button class="btn btn-primary" ng-click="addUser(newUser)">Set username</button>\
+                </div>',
       controller: 'UserModalInstanceCtrl',
       size: 'sm'
     });
