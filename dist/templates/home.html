@@ -1,45 +1,47 @@
-<div>
-  <h2>Chat Rooms</h2>
-  <div ng-controller="ModalCtrl">
-      <script type="text/ng-template" id="myModalContent.html">
-          <div class="modal-header">
-              <h3 class="modal-title">Create new room</h3>
-          </div>
-          <div class="modal-body">
-            <p>Enter a room name</p>
-            <input type="text" ng-model="newRoom">
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="addRoom()">Add</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-          </div>
-      </script>
-      <button class="btn btn-default" ng-click="open('sm')">New Room</button>
-  </div>
-  <div ng-repeat="room in rooms">
-    <ul>
-      <li class="rooms" ng-click="select(room.$id)">
-        {{room.room}}
-      </li>
-    </ul>
-  </div>
-</div>
 
-<div class="container">
-  <h3>{{activeRoom.room}}</h3>
-  <div class='row'>
-    <table> 
-      <tr ng-repeat= "message in messages">
-        <td class="col-md-3">{{message.username}}:</td>
-        <td class="col-md-7">{{message.content}}</td>
-        <td class="col-md-2"></td>
-       </tr>  
-    </table>
+  <div class="roomlist">
+    <h2>Chat Rooms</h2>
+    <div ng-controller="ModalCtrl">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Create new room</h3>
+            </div>
+            <div class="modal-body">
+              <p>Enter a room name</p>
+              <input type="text" ng-model="newRoom">
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" ng-click="addRoom()">Add</button>
+              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+        <button class="btn btn-default newroom" ng-click="open('sm')">New Room</button>
+    </div>
+    <div ng-repeat="room in rooms">
+      <ul>
+        <li class="rooms" ng-click="select(room.$id)">
+          {{room.room}}
+        </li>
+      </ul>
+    </div>
   </div>
-</div> 
-<div>
-  <input type="text" ng-model="newMessage" placeholder="Write your message here...">
-  <button class="btn btn-default" ng-click="sendMessage()">Send</button>
+ <div class="chatroom"> 
+  <div class="messages">
+    <h3>{{activeRoom.room}}</h3>
+    <div class='row'>
+      <table> 
+        <tr ng-repeat= "message in messages">
+          <td class="col-md-3">{{message.username}}:</td>
+          <td class="col-md-7">{{message.content}}</td>
+          <td class="col-md-2">{{message.sentat}}</td>
+         </tr>  
+      </table>
+    </div>
+  </div> 
+  <div class="input">
+    <input class="msginput" type="text" ng-model="newMessage" placeholder="Write your message here...">
+    <button class="btn btn-default send" ng-click="sendMessage()">Send</button>
+  </div>
 </div>
 
 

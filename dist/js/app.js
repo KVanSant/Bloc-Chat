@@ -98,7 +98,7 @@ blocchat.factory('Message', ['$firebase', '$cookieStore', function($firebase, $c
   var ref = new Firebase("https://blocchat.firebaseio.com/");
   var messages = $firebase(ref.child('messages')).$asArray();
   var currentUser = $cookieStore.get('blocChatCurrentUser');
-
+  
   return {
     send: function(newMessage, roomID) {
       messages.$add({

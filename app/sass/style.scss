@@ -1,12 +1,68 @@
+body {
+  
+}
+
+h2 {
+  margin-left: 10px;
+}
+
+.newroom {
+  margin-left: 50px;
+}
+
+.roomlist {
+  display: inline-block;
+  position: absolute;
+  background-color: #E2E2E2;
+  width: 200px;
+  height: 700px;
+}
+
 
 .rooms  {
   list-style: none;
+  margin-top: 15px;
 }
 
 .rooms:hover {
   font-weight: bold;
   cursor: pointer;
 }
-   
+  
 
+.chatroom {
+  height: 700px;
+}
 
+.messages {
+  display: inline-block;
+  margin-left: 200px;
+  max-width: 830px;
+  height: 650px;
+}
+
+h3 {
+  
+}
+
+tr:nth-child(even) {
+  background-color: #E2E2E2;
+
+}
+
+.input {
+  margin-left: 200px;
+}
+
+.msginput {
+  height: 50px;
+  width: 760px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+ }
+
+.send {
+  height: 50px;
+  width: 70px;
+
+}
