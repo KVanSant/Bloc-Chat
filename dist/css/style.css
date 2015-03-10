@@ -28,7 +28,7 @@ h2 {
   max-width: 830px;
   height: 650px; }
 
-tr:nth-child(even) {
+tr:nth-child(odd) {
   background-color: #E2E2E2; }
 
 .input {

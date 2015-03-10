@@ -30,8 +30,10 @@ blocchat.run(['$cookies', '$modal', function($cookies, $modal) {
                 </div>',
       controller: 'UserModalInstanceCtrl',
       size: 'sm'
-    });
+    });   
   }
+
+  
 }]);
 
 
@@ -48,7 +50,9 @@ blocchat.controller('HomeCtrl', ['$scope', 'Room', 'Message',  function($scope, 
     Message.send($scope.newMessage, $scope.activeRoom.$id);
     $scope.newMessage = "";
   };
+  
 }]);
+
 
 
 blocchat.controller('ModalCtrl', function($scope, $modal) {
@@ -82,6 +86,7 @@ blocchat.controller('UserModalInstanceCtrl', function($scope, $modalInstance, $c
     $cookieStore.put('blocChatCurrentUser', username);
     $modalInstance.close()
   };
+
 });
 
 
@@ -106,7 +111,6 @@ blocchat.factory('Room', ['$firebase', function($firebase) {
 blocchat.factory('Message', ['$firebase', '$cookieStore', function($firebase, $cookieStore) {
   var ref = new Firebase("https://blocchat.firebaseio.com/");
   var messages = $firebase(ref.child('messages')).$asArray();
-  var currentUser = $cookieStore.get('blocChatCurrentUser');
   
   return {
     send: function(newMessage, roomID) {
@@ -114,7 +118,7 @@ blocchat.factory('Message', ['$firebase', '$cookieStore', function($firebase, $c
         content: newMessage,
         sentat: Firebase.ServerValue.TIMESTAMP,
         roomid: roomID,
-        username: currentUser
+        username: $cookieStore.get('blocChatCurrentUser')
       });
     }
   }
